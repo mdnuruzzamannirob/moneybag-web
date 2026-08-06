@@ -18,7 +18,10 @@ import {
   AppProgress,
   AppStatCard,
 } from '@/components/app-ui';
-import { CategoryPieChart, IncomeExpenseBarChart } from '@/components/charts/dashboard-charts';
+import {
+  CategoryPieChart,
+  IncomeExpenseBarChart,
+} from '@/components/shared/charts/dashboard-charts';
 import { cn } from '@/lib/utils';
 import type {
   BudgetSummary,

@@ -1,4 +1,4 @@
-﻿const Members = () => {
+const Members = () => {
   return <div>Members</div>;
 };
 

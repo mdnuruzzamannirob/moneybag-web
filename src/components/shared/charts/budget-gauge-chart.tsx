@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { EChartCanvas } from '@/components/charts/echart-canvas';
+import { EChartCanvas } from '@/components/shared/charts/echart-canvas';
 
 export function BudgetGaugeChart({ value }: { value: number }) {
   const safeValue = Math.max(0, Math.min(100, value));

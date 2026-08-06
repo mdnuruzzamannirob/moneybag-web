@@ -20,20 +20,23 @@ function ChartSkeleton({ className = 'h-72' }: { className?: string }) {
 
 const IncomeExpenseChart = dynamic(
   () =>
-    import('@/components/charts/income-expense-bar-chart').then(
+    import('@/components/shared/charts/income-expense-bar-chart').then(
       (module) => module.IncomeExpenseBarChart,
     ),
   { ssr: false, loading: () => <ChartSkeleton /> },
 );
 
 const DistributionChart = dynamic(
-  () => import('@/components/charts/category-pie-chart').then((module) => module.CategoryPieChart),
+  () =>
+    import('@/components/shared/charts/category-pie-chart').then(
+      (module) => module.CategoryPieChart,
+    ),
   { ssr: false, loading: () => <ChartSkeleton className="h-64" /> },
 );
 
 const UserGrowthChart = dynamic(
   () =>
-    import('@/components/charts/daily-trend-line-chart').then(
+    import('@/components/shared/charts/daily-trend-line-chart').then(
       (module) => module.DailyTrendLineChart,
     ),
   { ssr: false, loading: () => <ChartSkeleton /> },

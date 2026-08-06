@@ -22,8 +22,8 @@ import {
   AppSelect,
   AppStatCard,
 } from '@/components/app-ui';
-import { CategoryPieChart } from '@/components/charts/dashboard-charts';
-import { FinanceTrendChart } from '@/components/charts/finance-charts';
+import { CategoryPieChart } from '@/components/shared/charts/dashboard-charts';
+import { FinanceTrendChart } from '@/components/shared/charts/finance-charts';
 import { analyticsPeriodOptions, analyticsSnapshots } from '@/lib/report-data';
 import { cn } from '@/lib/utils';
 import type { IncomeExpensePoint } from '@/types/dashboard-models';

@@ -10,8 +10,15 @@ import {
   AppKbd,
   AppPopover,
   AppTooltip,
-} from '../app-ui';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
+} from '@/components/app-ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+
 import { NavSection } from './DashboardShell';
 import { wallets } from '@/components/user/wallet-data';
 import { cn } from '@/lib/utils';

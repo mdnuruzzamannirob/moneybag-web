@@ -10,7 +10,7 @@ function ChartSkeleton() {
 
 const CashFlowBars = dynamic(
   () =>
-    import('@/components/charts/dashboard-chart-modules').then(
+    import('@/components/shared/charts/dashboard-chart-modules').then(
       (module) => module.IncomeExpenseChartModule,
     ),
   { ssr: false, loading: () => <ChartSkeleton /> },
@@ -18,7 +18,7 @@ const CashFlowBars = dynamic(
 
 const CashFlowTrend = dynamic(
   () =>
-    import('@/components/charts/dashboard-chart-modules').then(
+    import('@/components/shared/charts/dashboard-chart-modules').then(
       (module) => module.FinanceTrendChartModule,
     ),
   { ssr: false, loading: () => <ChartSkeleton /> },

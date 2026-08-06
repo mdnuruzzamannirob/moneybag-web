@@ -1,4 +1,4 @@
-﻿const Budgets = () => {
+const Budgets = () => {
   return <div>Budgets</div>;
 };
 

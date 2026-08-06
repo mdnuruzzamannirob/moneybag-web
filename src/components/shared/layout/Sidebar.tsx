@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Logo from '../shared/Logo';
+import Logo from '../Logo';
 
 import {
   AppButton,

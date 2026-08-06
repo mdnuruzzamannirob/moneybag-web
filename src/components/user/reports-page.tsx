@@ -27,8 +27,8 @@ import {
   AppTable,
   type AppTableColumn,
 } from '@/components/app-ui';
-import { CategoryPieChart } from '@/components/charts/dashboard-charts';
-import { FinanceBarChart, FinanceTrendChart } from '@/components/charts/finance-charts';
+import { CategoryPieChart } from '@/components/shared/charts/dashboard-charts';
+import { FinanceBarChart, FinanceTrendChart } from '@/components/shared/charts/finance-charts';
 import { dailyTrend, reportMonths, yearlyCashFlow } from '@/lib/report-data';
 import { cn } from '@/lib/utils';
 import type { DistributionItem, IncomeExpensePoint } from '@/types/dashboard-models';

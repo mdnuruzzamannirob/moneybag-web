@@ -1,4 +1,4 @@
-﻿const Family = () => {
+const Family = () => {
   return <div>Family</div>;
 };
 

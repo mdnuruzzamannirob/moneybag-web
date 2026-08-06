@@ -1,4 +1,4 @@
-﻿const Settlements = () => {
+const Settlements = () => {
   return <div>Settlements</div>;
 };
 

@@ -1,6 +1,6 @@
 import { Home, Search } from 'lucide-react';
 
-import { PublicShell } from '@/components/layout/PublicShell';
+import { PublicShell } from '@/components/public/PublicShell';
 import { ButtonLink, DotPattern } from '@/components/public/public-ui';
 
 export default function NotFound() {

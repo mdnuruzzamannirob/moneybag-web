@@ -84,7 +84,7 @@ These decisions are already agreed and should not be reopened during routine imp
 |     0 | Baseline and safety                       | —          | Complete    |
 |     1 | Tooling and quality foundation            | Phase 0    | Complete    |
 |     2 | Route groups, layouts, and shells         | Phase 1    | Complete    |
-|     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Not started |
+|     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Complete    |
 |     4 | Services, store, providers, and contracts | Phase 3    | Not started |
 |     5 | Public application areas                  | Phase 4    | Not started |
 |     6 | Personal Dashboard                        | Phase 5    | Not started |
@@ -268,47 +268,77 @@ Establish one consistent component system before migrating screen implementation
 
 #### Raw primitives
 
-- [ ] Audit `components/ui` for generated primitives, local fixes, unused files, and accessibility
+- [x] Audit `components/ui` for generated primitives, local fixes, unused files, and accessibility
       regressions.
-- [ ] Keep primitives business-agnostic.
-- [ ] Document any intentional changes that would affect all higher-level components.
+- [x] Keep primitives business-agnostic.
+- [x] Document any intentional changes that would affect all higher-level components.
 
 #### MoneyBag `app-ui`
 
-- [ ] Inventory every existing `app-ui` component, variant, state, and consumer.
-- [ ] Verify light/dark, keyboard, focus, disabled, loading, error, and responsive behavior.
-- [ ] Preserve useful existing components; fix their contracts rather than replacing the layer.
-- [ ] Remove confirmed duplication among `AppStatCard`, shared stat cards, tables, fields, file
+- [x] Inventory every existing `app-ui` component, variant, state, and consumer.
+- [x] Verify light/dark, keyboard, focus, disabled, loading, error, and responsive behavior.
+- [x] Preserve useful existing components; fix their contracts rather than replacing the layer.
+- [x] Remove confirmed duplication among `AppStatCard`, shared stat cards, tables, fields, file
       uploaders, and empty/loading components.
-- [ ] Keep business logic and API types out of `app-ui`.
-- [ ] Keep heavy lazy-only components directly importable without relying on the broad barrel.
-- [ ] Keep the `app-ui` barrel free of `'use client'` and circular imports.
+- [x] Keep business logic and API types out of `app-ui`.
+- [x] Keep heavy lazy-only components directly importable without relying on the broad barrel.
+- [x] Keep the `app-ui` barrel free of `'use client'` and circular imports.
 
 #### Shared and context UI
 
-- [ ] Split `components/layout`:
+- [x] Split `components/layout`:
   - public header/footer/shell → `components/public`;
   - auth shell → `components/auth`;
   - dashboard-neutral frame pieces → `components/shared`;
   - context navigation/shell behavior → Personal, Family, or Admin components.
-- [ ] Move cross-context chart primitives to `components/shared/charts`.
-- [ ] Keep dashboard-specific chart composition inside its owning context.
+- [x] Move cross-context chart primitives to `components/shared/charts`.
+- [x] Keep dashboard-specific chart composition inside its owning context.
 - [ ] Move `components/user` to `components/personal` incrementally with its routes.
-- [ ] Normalize new/touched component filenames to `kebab-case`.
+- [x] Normalize new/touched component filenames to `kebab-case`.
 
 #### UI catalog
 
-- [ ] Break the large `/ui` page into manageable catalog sections/components.
-- [ ] Ensure the catalog demonstrates every supported `app-ui` state and variant.
-- [ ] Lazy-load heavy catalog examples that are not initially visible.
-- [ ] Keep the catalog publicly reachable as agreed.
+- [x] Break the large `/ui` page into manageable catalog sections/components.
+- [x] Ensure the catalog demonstrates every supported `app-ui` state and variant.
+- [x] Lazy-load heavy catalog examples that are not initially visible.
+- [x] Keep the catalog publicly reachable as agreed.
 
 ### Exit Gate
 
-- [ ] Product screens have a clear rule for using `ui`, `app-ui`, or `shared`.
-- [ ] No duplicate application-level primitive remains without a documented reason.
-- [ ] `/ui` accurately represents the supported application UI contracts.
-- [ ] Component accessibility tests and all quality gates pass.
+- [x] Product screens have a clear rule for using `ui`, `app-ui`, or `shared`.
+- [x] No duplicate application-level primitive remains without a documented reason.
+- [x] `/ui` accurately represents the supported application UI contracts.
+- [x] Component accessibility tests and all quality gates pass.
+
+### Completion Log
+
+**Completed:** 2026-08-06
+
+#### What was done
+
+- **Raw primitives** – Audited all `components/ui` shadcn/radix primitives; confirmed business-agnostic and free of regressions. No breaking changes made.
+- **`app-ui` contracts** – Inventoried all `app-ui` components and corrected prop contracts:
+  - `AppBadge`: uses `status` prop (not `tone`).
+  - `AppSwitch` / `AppCheckbox`: require a `label` prop.
+  - `AppField`: uses `description` instead of `hint`.
+  - `AppTabs` / `AppTable`: require explicit `value`/`key` props matching the types exported from the barrel.
+- **Barrel hygiene** – Confirmed `app-ui/index.ts` is free of `'use client'` directives and circular imports. Heavy components (`AppTable`, chart wrappers) are directly importable via their own paths.
+- **Layout split** – Reorganized `components/layout` into:
+  - `components/public` – public marketing header/footer/shell.
+  - `components/auth` – `AuthShell` and auth layout wrappers.
+  - `components/shared/layout` – `Sidebar`, `Topbar`, and dashboard-neutral frame pieces.
+  - Fixed Logo import path in `Sidebar.tsx` and `app-ui`/`ui/dialog` import paths in `Topbar.tsx`.
+- **Charts** – Moved cross-context chart primitives to `components/shared/charts`; dashboard-specific chart compositions remain inside their owning contexts.
+- **UI catalog** – Refactored the large `src/app/(public)/ui/page.tsx` into four lazy-loaded modular sections:
+  - `_components/data-display-section.tsx`
+  - `_components/form-controls-section.tsx`
+  - `_components/navigation-section.tsx`
+  - `_components/feedback-overlays-section.tsx`
+- **Quality gates** – `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` all pass.
+
+#### Deferred to Phase 6
+
+- `Move components/user to components/personal` – deferred intentionally; will be done incrementally alongside Personal Dashboard route migration (Phase 6).
 
 ---
 

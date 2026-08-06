@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { AppButton, AppCard, AppPageHeader } from '@/components/app-ui';
 import { ArrowDownRight, Plus, Users, WalletCards } from 'lucide-react';
 

@@ -1,7 +1,7 @@
 import { Activity, ArrowRight, BadgeDollarSign, Server, UserMinus, Users } from 'lucide-react';
 import Link from 'next/link';
 
-import { CategoryPieChart, DailyTrendLineChart } from '@/components/charts/dashboard-charts';
+import { CategoryPieChart, DailyTrendLineChart } from '@/components/shared/charts/dashboard-charts';
 import { AppBadge, AppButton, AppCard, AppPageHeader, AppStatCard } from '@/components/app-ui';
 import type { AdminActivityItem, AdminDashboardData } from '@/types/dashboard-models';
 

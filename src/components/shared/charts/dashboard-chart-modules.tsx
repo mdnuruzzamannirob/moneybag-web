@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { EChartCanvas } from '@/components/charts/echart-canvas';
+import { EChartCanvas } from '@/components/shared/charts/echart-canvas';
 import type {
   DistributionItem,
   IncomeExpensePoint,
