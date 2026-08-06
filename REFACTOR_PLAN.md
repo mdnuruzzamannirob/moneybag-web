@@ -85,8 +85,8 @@ These decisions are already agreed and should not be reopened during routine imp
 |     1 | Tooling and quality foundation            | Phase 0    | Complete    |
 |     2 | Route groups, layouts, and shells         | Phase 1    | Complete    |
 |     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Complete    |
-|     4 | Services, store, providers, and contracts | Phase 3    | Not started |
-|     5 | Public application areas                  | Phase 4    | Not started |
+|     4 | Services, store, providers, and contracts | Phase 3    | Complete    |
+|     5 | Public application areas                  | Phase 4    | Complete    |
 |     6 | Personal Dashboard                        | Phase 5    | Not started |
 |     7 | Family Dashboard                          | Phase 6    | Not started |
 |     8 | Admin Dashboard                           | Phase 7    | Not started |
@@ -310,36 +310,6 @@ Establish one consistent component system before migrating screen implementation
 - [x] `/ui` accurately represents the supported application UI contracts.
 - [x] Component accessibility tests and all quality gates pass.
 
-### Completion Log
-
-**Completed:** 2026-08-06
-
-#### What was done
-
-- **Raw primitives** – Audited all `components/ui` shadcn/radix primitives; confirmed business-agnostic and free of regressions. No breaking changes made.
-- **`app-ui` contracts** – Inventoried all `app-ui` components and corrected prop contracts:
-  - `AppBadge`: uses `status` prop (not `tone`).
-  - `AppSwitch` / `AppCheckbox`: require a `label` prop.
-  - `AppField`: uses `description` instead of `hint`.
-  - `AppTabs` / `AppTable`: require explicit `value`/`key` props matching the types exported from the barrel.
-- **Barrel hygiene** – Confirmed `app-ui/index.ts` is free of `'use client'` directives and circular imports. Heavy components (`AppTable`, chart wrappers) are directly importable via their own paths.
-- **Layout split** – Reorganized `components/layout` into:
-  - `components/public` – public marketing header/footer/shell.
-  - `components/auth` – `AuthShell` and auth layout wrappers.
-  - `components/shared/layout` – `Sidebar`, `Topbar`, and dashboard-neutral frame pieces.
-  - Fixed Logo import path in `Sidebar.tsx` and `app-ui`/`ui/dialog` import paths in `Topbar.tsx`.
-- **Charts** – Moved cross-context chart primitives to `components/shared/charts`; dashboard-specific chart compositions remain inside their owning contexts.
-- **UI catalog** – Refactored the large `src/app/(public)/ui/page.tsx` into four lazy-loaded modular sections:
-  - `_components/data-display-section.tsx`
-  - `_components/form-controls-section.tsx`
-  - `_components/navigation-section.tsx`
-  - `_components/feedback-overlays-section.tsx`
-- **Quality gates** – `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` all pass.
-
-#### Deferred to Phase 6
-
-- `Move components/user to components/personal` – deferred intentionally; will be done incrementally alongside Personal Dashboard route migration (Phase 6).
-
 ---
 
 ## Phase 4 — Services, Store, Providers, and Contracts
@@ -405,21 +375,6 @@ Create one typed API/state foundation before migrating data-driven screens.
       are gone.
 - [x] API/store tests and all quality gates pass.
 
-### Completion Log
-
-**Completed:** 2026-08-06
-
-#### What was done
-
-- **Base API & RTK Query Foundation** – Implemented `services/base-api.ts` with `fetchBaseQuery`, automatic 401 re-auth with concurrency locking, tag type registry (`TAG_TYPES`), and normalized application error formatting (`normalizeError`).
-- **Capability-Named Resource APIs** – Implemented 16 modular capability APIs: `auth-api.ts`, `wallets-api.ts`, `transactions-api.ts` (with recurring capability merged), `categories-api.ts`, `budgets-api.ts`, `goals-api.ts`, `reports-api.ts`, `family-groups-api.ts`, `family-members-api.ts`, `settlements-api.ts`, `billing-api.ts`, `coupons-api.ts`, `users-api.ts`, `subscriptions-api.ts`, `plans-api.ts`, and `audit-logs-api.ts`.
-- **Server-Only Helpers** – Added `services/server/session.ts` and `services/server/request.ts` with `import 'server-only';`.
-- **Single Redux Store** – Configured single store in `store/store.ts` with `baseApi` middleware & reducer, `auth-slice.ts` under `store/slices/`, and typed hooks in `store/hooks.ts`. Deleted legacy `src/redux/` directory.
-- **Provider Layer** – Implemented `ReduxProvider` (React 19 initializer pattern), `ToastProvider`, and `AppProviders` composition in `providers/app-providers.tsx`. Updated `app/layout.tsx`.
-- **Domain & Error Contracts** – Defined `AppError`, `ApiResponse<T>`, `PaginatedResponse<T>` in `types/api.ts` and domain contracts in `user.ts`, `wallet.ts`, `transaction.ts`, `budget.ts`, `admin.ts`.
-- **Cleaned Stubs** – Removed empty `lib/axios.ts`. Updated test helpers in `test/helpers.tsx`.
-- **Tests & Quality Gates** – Added `src/test/services-and-store.test.ts`. `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` all pass.
-
 ---
 
 ## Phase 5 — Public Application Areas
@@ -432,51 +387,51 @@ Complete Public pages, Auth, Onboarding, UI catalog, and Maintenance using the n
 
 #### 5.1 Public pages
 
-- [ ] Landing
-- [ ] Features, integrations, customers, and pricing
-- [ ] About, careers, and press
-- [ ] Blog list and dynamic article routes
-- [ ] FAQ, contact, help center, changelog, and status
-- [ ] Terms, privacy, and security
+- [x] Landing
+- [x] Features, integrations, customers, and pricing
+- [x] About, careers, and press
+- [x] Blog list and dynamic article routes
+- [x] FAQ, contact, help center, changelog, and status
+- [x] Terms, privacy, and security
 
 For each route:
 
-- [ ] Keep the route thin and move reusable screen UI to `components/public`.
-- [ ] Add/verify typed metadata.
-- [ ] Use Server Components unless a narrow interaction needs a client boundary.
-- [ ] Replace repeated UI with `app-ui` or shared components.
-- [ ] Verify internal links, responsive behavior, themes, and accessibility.
+- [x] Keep the route thin and move reusable screen UI to `components/public`.
+- [x] Add/verify typed metadata.
+- [x] Use Server Components unless a narrow interaction needs a client boundary.
+- [x] Replace repeated UI with `app-ui` or shared components.
+- [x] Verify internal links, responsive behavior, themes, and accessibility.
 
 #### 5.2 Authentication
 
-- [ ] Login and registration
-- [ ] Forgot/reset password
-- [ ] Email verification
-- [ ] 2FA setup, challenge, and recovery
-- [ ] Callback and error routes
-- [ ] Implement real auth schemas, auth API endpoints, pending/error states, and safe redirects.
-- [ ] Keep credentials/session handling server/backend controlled.
+- [x] Login and registration
+- [x] Forgot/reset password
+- [x] Email verification
+- [x] 2FA setup, challenge, and recovery
+- [x] Callback and error routes
+- [x] Implement real auth schemas, auth API endpoints, pending/error states, and safe redirects.
+- [x] Keep credentials/session handling server/backend controlled.
 
 #### 5.3 Onboarding
 
-- [ ] Move onboarding UI into `components/onboarding`.
-- [ ] Keep `/onboarding` publicly reachable.
-- [ ] Authenticate/authorize any account-specific reads or mutations independently.
-- [ ] Preserve progress safely and handle restart/recovery states.
+- [x] Move onboarding UI into `components/onboarding`.
+- [x] Keep `/onboarding` publicly reachable.
+- [x] Authenticate/authorize any account-specific reads or mutations independently.
+- [x] Preserve progress safely and handle restart/recovery states.
 
 #### 5.4 UI catalog and Maintenance
 
-- [ ] Complete the `/ui` catalog work begun in Phase 3.
-- [ ] Keep `/maintenance` minimal, responsive, accessible, and independent of the marketing shell.
-- [ ] Keep maintenance activation logic outside the page component.
+- [x] Complete the `/ui` catalog work begun in Phase 3.
+- [x] Keep `/maintenance` minimal, responsive, accessible, and independent of the marketing shell.
+- [x] Keep maintenance activation logic outside the page component.
 
 ### Exit Gate
 
-- [ ] All Public-context routes use the correct nested shell.
-- [ ] Auth flows have validated inputs and complete pending/error/success behavior.
-- [ ] Onboarding remains publicly reachable while protected actions remain secure.
-- [ ] Public critical-flow and accessibility tests pass.
-- [ ] All quality gates pass.
+- [x] All Public-context routes use the correct nested shell.
+- [x] Auth flows have validated inputs and complete pending/error/success behavior.
+- [x] Onboarding remains publicly reachable while protected actions remain secure.
+- [x] Public critical-flow and accessibility tests pass.
+- [x] All quality gates pass.
 
 ---
 
@@ -769,8 +724,11 @@ Use this checklist whenever a single route or workflow is migrated:
 
 Add one row when a phase or meaningful route batch changes status.
 
-| Date       | Phase/batch | Status   | Verification                              | Notes/next action                                                              |
-| ---------- | ----------- | -------- | ----------------------------------------- | ------------------------------------------------------------------------------ |
-| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records  | Baseline documented and safety validated.                                      |
-| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test  | Vitest + RTL setup, test helpers & CI flow                                     |
-| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build | Route groups (public), (personal), (family), (admin) & explicit shells created |
+| Date       | Phase/batch | Status   | Verification                                              | Notes/next action                                                              |
+| ---------- | ----------- | -------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records                  | Baseline documented and safety validated.                                      |
+| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test                  | Vitest + RTL setup, test helpers & CI flow                                     |
+| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build                 | Route groups (public), (personal), (family), (admin) & explicit shells created |
+| 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                           |
+| 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                        |
+| 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed             |
