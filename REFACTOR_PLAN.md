@@ -543,58 +543,58 @@ Migrate Admin Dashboard as an independently authorized operations context.
 
 #### 8.1 Shell, profile, and access
 
-- [ ] Admin entry/dashboard
-- [ ] Admin profile and profile security
-- [ ] Admin team
+- [x] Admin entry/dashboard
+- [x] Admin profile and profile security
+- [x] Admin team
 
 #### 8.2 Users and support
 
-- [ ] Users list and user detail
-- [ ] Tickets list and ticket detail
-- [ ] User impersonation with explicit audit/security controls
+- [x] Users list and user detail
+- [x] Tickets list and ticket detail
+- [x] User impersonation with explicit audit/security controls
 
 #### 8.3 Commercial management
 
-- [ ] Subscriptions
-- [ ] Plans
-- [ ] Coupons
-- [ ] Payment/payment-gateway settings
+- [x] Subscriptions
+- [x] Plans
+- [x] Coupons
+- [x] Payment/payment-gateway settings
 
 #### 8.4 Content management
 
-- [ ] Blog
-- [ ] FAQ
-- [ ] Announcements
-- [ ] Email templates
-- [ ] Categories and legal content settings
+- [x] Blog
+- [x] FAQ
+- [x] Announcements
+- [x] Email templates
+- [x] Categories and legal content settings
 
 #### 8.5 Operations and settings
 
-- [ ] Audit logs and logs
-- [ ] Reports
-- [ ] System health
-- [ ] General, localization, email/SMTP, storage, security, auth-provider, and OAuth settings
+- [x] Audit logs and logs
+- [x] Reports
+- [x] System health
+- [x] General, localization, email/SMTP, storage, security, auth-provider, and OAuth settings
 
 ### Tasks
 
-- [ ] Use `AdminDashboardShell` and Admin-specific navigation/breadcrumbs.
-- [ ] Enforce Admin authorization in server-only checks and again at every backend mutation/data
+- [x] Use `AdminDashboardShell` and Admin-specific navigation/breadcrumbs.
+- [x] Enforce Admin authorization in server-only checks and again at every backend mutation/data
       boundary.
-- [ ] Replace `adminApi.ts` with resource APIs.
-- [ ] Keep Admin screen UI in `components/admin`; reuse only domain-neutral `app-ui`/shared pieces.
-- [ ] Replace or delete current placeholder Admin tables, modals, and actions when their route batch
+- [x] Replace `adminApi.ts` with resource APIs.
+- [x] Keep Admin screen UI in `components/admin`; reuse only domain-neutral `app-ui`/shared pieces.
+- [x] Replace or delete current placeholder Admin tables, modals, and actions when their route batch
       migrates.
-- [ ] Split the oversized Admin settings panel into route-specific, testable screen components.
-- [ ] Require confirmations and clear consequences for destructive or impersonation actions.
-- [ ] Add audit-log expectations for sensitive actions.
-- [ ] Paginate large users, tickets, subscriptions, and log datasets.
+- [x] Split the oversized Admin settings panel into route-specific, testable screen components.
+- [x] Require confirmations and clear consequences for destructive or impersonation actions.
+- [x] Add audit-log expectations for sensitive actions.
+- [x] Paginate large users, tickets, subscriptions, and log datasets.
 
 ### Exit Gate
 
-- [ ] Every `/admin/*` route uses `AdminDashboardShell`.
-- [ ] Admin access does not depend solely on a layout, URL, or hidden client control.
-- [ ] No umbrella `admin-api.ts` or route-shared monolithic settings panel remains.
-- [ ] Admin critical-flow tests and all quality gates pass.
+- [x] Every `/admin/*` route uses `AdminDashboardShell`.
+- [x] Admin access does not depend solely on a layout, URL, or hidden client control.
+- [x] No umbrella `admin-api.ts` or route-shared monolithic settings panel remains.
+- [x] Admin critical-flow tests and all quality gates pass.
 
 ---
 
@@ -724,13 +724,14 @@ Use this checklist whenever a single route or workflow is migrated:
 
 Add one row when a phase or meaningful route batch changes status.
 
-| Date       | Phase/batch | Status   | Verification                                              | Notes/next action                                                                                                                  |
-| ---------- | ----------- | -------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records                  | Baseline documented and safety validated.                                                                                          |
-| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test                  | Vitest + RTL setup, test helpers & CI flow                                                                                         |
-| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build                 | Route groups (public), (personal), (family), (admin) & explicit shells created                                                     |
-| 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                                                                               |
-| 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                                                                            |
-| 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed                                                                 |
-| 2026-08-06 | Phase 6     | Complete | All quality gates pass (106 pages built, 21 tests passed) | `components/user` deleted; all Personal routes migrated to `components/personal`; `wallet-fixtures.ts` extracted to `lib/fixtures` |
+| Date       | Phase/batch | Status   | Verification                                              | Notes/next action                                                                                                                                                      |
+| ---------- | ----------- | -------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records                  | Baseline documented and safety validated.                                                                                                                              |
+| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test                  | Vitest + RTL setup, test helpers & CI flow                                                                                                                             |
+| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build                 | Route groups (public), (personal), (family), (admin) & explicit shells created                                                                                         |
+| 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                                                                                                                   |
+| 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                                                                                                                |
+| 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed                                                                                                     |
+| 2026-08-06 | Phase 6     | Complete | All quality gates pass (106 pages built, 21 tests passed) | `components/user` deleted; all Personal routes migrated to `components/personal`; `wallet-fixtures.ts` extracted to `lib/fixtures`                                     |
 | 2026-08-06 | Phase 7     | Complete | All quality gates pass (106 pages built, 27 tests passed) | Legacy `family-dashboard`, `family-overview`, `family-page`, `family-wallets` deleted; 9 Family routes now served by modular view components under `components/family` |
+| 2026-08-06 | Phase 8     | Complete | All quality gates pass (106 pages built, 35 tests passed) | Legacy admin placeholders deleted; 11 modular Admin view components built under `components/admin`; 39 Admin routes connected to thin pages with typed metadata |
