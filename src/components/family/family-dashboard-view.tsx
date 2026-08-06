@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ArrowRight,
   CircleDollarSign,
@@ -34,7 +36,7 @@ const metricIcons = [WalletCards, TrendingUp, TrendingDown, Target];
 const numberFormatter = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 const formatCurrency = (value: number) => `৳${numberFormatter.format(value)}`;
 
-export function FamilyDashboard({ data }: { data: FamilyDashboardData }) {
+export function FamilyDashboardView({ data }: { data: FamilyDashboardData }) {
   const categoryTotal = data.categories.reduce((total, category) => total + category.value, 0);
   const netBalance = data.balances.reduce(
     (total, balance) => total + (balance.type === 'owes_you' ? balance.amount : -balance.amount),

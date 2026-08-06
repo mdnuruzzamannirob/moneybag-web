@@ -1,12 +1,12 @@
-import { FamilyDashboard } from '@/components/family/family-dashboard';
-import { familyDashboardDemoData } from '@/lib/dashboard-data';
 import type { Metadata } from 'next';
+import { FamilyDashboardView } from '@/components/family/family-dashboard-view';
+import { familyDashboardDemoData } from '@/lib/dashboard-data';
 
 export const metadata: Metadata = {
-  title: 'Family dashboard',
-  description: 'Track shared balances, budgets, contributions, and family activity.',
+  title: 'Family Dashboard | MoneyBag',
+  description: 'Track shared family balances, budgets, contributions, and activity.',
 };
 
 export default function Page() {
-  return <FamilyDashboard data={familyDashboardDemoData} />;
+  return <FamilyDashboardView data={familyDashboardDemoData} />;
 }

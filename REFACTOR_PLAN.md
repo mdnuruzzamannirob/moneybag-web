@@ -88,7 +88,7 @@ These decisions are already agreed and should not be reopened during routine imp
 |     4 | Services, store, providers, and contracts | Phase 3    | Complete    |
 |     5 | Public application areas                  | Phase 4    | Complete    |
 |     6 | Personal Dashboard                        | Phase 5    | Complete    |
-|     7 | Family Dashboard                          | Phase 6    | Not started |
+|     7 | Family Dashboard                          | Phase 6    | Complete    |
 |     8 | Admin Dashboard                           | Phase 7    | Not started |
 |     9 | Cross-cutting hardening                   | Phase 8    | Not started |
 |    10 | Cleanup, release validation, and handoff  | Phase 9    | Not started |
@@ -499,37 +499,37 @@ Migrate Family Dashboard as an independent context while reusing shared financia
 
 ### Route Order
 
-1. [ ] Family entry/dashboard
-2. [ ] Members, invitations, roles, and permissions
-3. [ ] Family wallets
-4. [ ] Family transactions
-5. [ ] Family budgets
-6. [ ] Balances
-7. [ ] Settlements
-8. [ ] Family reports
-9. [ ] Family settings
+1. [x] Family entry/dashboard
+2. [x] Members, invitations, roles, and permissions
+3. [x] Family wallets
+4. [x] Family transactions
+5. [x] Family budgets
+6. [x] Balances
+7. [x] Settlements
+8. [x] Family reports
+9. [x] Family settings
 
 ### Tasks
 
-- [ ] Use `FamilyDashboardShell` and Family-specific navigation/breadcrumbs.
-- [ ] Make the active family/group context explicit and typed.
-- [ ] Enforce membership and role permissions at the server/backend boundary for every read and
+- [x] Use `FamilyDashboardShell` and Family-specific navigation/breadcrumbs.
+- [x] Make the active family/group context explicit and typed.
+- [x] Enforce membership and role permissions at the server/backend boundary for every read and
       mutation.
-- [ ] Use capability APIs for family groups, members, settlements, and scoped finance resources.
-- [ ] Do not recreate Personal wallet/transaction/budget primitives solely because the route is
+- [x] Use capability APIs for family groups, members, settlements, and scoped finance resources.
+- [x] Do not recreate Personal wallet/transaction/budget primitives solely because the route is
       under Family Dashboard.
-- [ ] Keep Family-specific orchestration in `components/family` and shared presentation in
+- [x] Keep Family-specific orchestration in `components/family` and shared presentation in
       `app-ui`/`shared`.
-- [ ] Split oversized Family overview/wallet modules by screen responsibility.
-- [ ] Test owner/admin/member/viewer behavior as defined by the backend contract.
-- [ ] Test settlement signs, totals, rounding, currency scope, and date boundaries.
+- [x] Split oversized Family overview/wallet modules by screen responsibility.
+- [x] Test owner/admin/member/viewer behavior as defined by the backend contract.
+- [x] Test settlement signs, totals, rounding, currency scope, and date boundaries.
 
 ### Exit Gate
 
-- [ ] Every `/family/*` route uses `FamilyDashboardShell`.
-- [ ] Family access is enforced beyond client-side navigation visibility.
-- [ ] No umbrella `family-api.ts` or duplicated Personal UI implementation remains.
-- [ ] Family critical-flow tests and all quality gates pass.
+- [x] Every `/family/*` route uses `FamilyDashboardShell`.
+- [x] Family access is enforced beyond client-side navigation visibility.
+- [x] No umbrella `family-api.ts` or duplicated Personal UI implementation remains.
+- [x] Family critical-flow tests and all quality gates pass.
 
 ---
 
@@ -724,12 +724,13 @@ Use this checklist whenever a single route or workflow is migrated:
 
 Add one row when a phase or meaningful route batch changes status.
 
-| Date       | Phase/batch | Status   | Verification                                              | Notes/next action                                                              |
-| ---------- | ----------- | -------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records                  | Baseline documented and safety validated.                                      |
-| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test                  | Vitest + RTL setup, test helpers & CI flow                                     |
-| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build                 | Route groups (public), (personal), (family), (admin) & explicit shells created |
-| 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                           |
-| 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                        |
-| 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed             |
+| Date       | Phase/batch | Status   | Verification                                              | Notes/next action                                                                                                                  |
+| ---------- | ----------- | -------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records                  | Baseline documented and safety validated.                                                                                          |
+| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test                  | Vitest + RTL setup, test helpers & CI flow                                                                                         |
+| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build                 | Route groups (public), (personal), (family), (admin) & explicit shells created                                                     |
+| 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                                                                               |
+| 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                                                                            |
+| 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed                                                                 |
 | 2026-08-06 | Phase 6     | Complete | All quality gates pass (106 pages built, 21 tests passed) | `components/user` deleted; all Personal routes migrated to `components/personal`; `wallet-fixtures.ts` extracted to `lib/fixtures` |
+| 2026-08-06 | Phase 7     | Complete | All quality gates pass (106 pages built, 27 tests passed) | Legacy `family-dashboard`, `family-overview`, `family-page`, `family-wallets` deleted; 9 Family routes now served by modular view components under `components/family` |

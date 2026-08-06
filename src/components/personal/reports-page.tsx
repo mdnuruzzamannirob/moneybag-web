@@ -127,9 +127,7 @@ export function ReportsPage() {
 
   const netSavings = monthReport ? monthReport.income - monthReport.expense : 0;
   const savingsRate =
-    monthReport && monthReport.income > 0
-      ? Math.round((netSavings / monthReport.income) * 100)
-      : 0;
+    monthReport && monthReport.income > 0 ? Math.round((netSavings / monthReport.income) * 100) : 0;
 
   return (
     <div className="space-y-6">
