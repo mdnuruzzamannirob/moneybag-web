@@ -81,8 +81,8 @@ These decisions are already agreed and should not be reopened during routine imp
 
 | Phase | Name                                      | Depends on | Status      |
 | ----: | ----------------------------------------- | ---------- | ----------- |
-|     0 | Baseline and safety                       | —          | Not started |
-|     1 | Tooling and quality foundation            | Phase 0    | Not started |
+|     0 | Baseline and safety                       | —          | Complete    |
+|     1 | Tooling and quality foundation            | Phase 0    | Complete    |
 |     2 | Route groups, layouts, and shells         | Phase 1    | Not started |
 |     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Not started |
 |     4 | Services, store, providers, and contracts | Phase 3    | Not started |
@@ -103,18 +103,18 @@ Create a reliable record of current behavior and known failures before moving co
 
 ### Tasks
 
-- [ ] Record the current branch, working-tree state, and user-owned changes.
-- [ ] Generate a route inventory containing every current public URL.
-- [ ] Identify critical user journeys:
-  - [ ] Public navigation and pricing
-  - [ ] Login, registration, recovery, verification, and 2FA
-  - [ ] Onboarding
-  - [ ] Personal dashboard overview
-  - [ ] Wallet and transaction workflows
-  - [ ] Family navigation and permissions
-  - [ ] Admin navigation and protected actions
-- [ ] Capture current screenshots or a concise behavior checklist for critical routes.
-- [ ] Run and record the current baseline results:
+- [x] Record the current branch, working-tree state, and user-owned changes.
+- [x] Generate a route inventory containing every current public URL.
+- [x] Identify critical user journeys:
+  - [x] Public navigation and pricing
+  - [x] Login, registration, recovery, verification, and 2FA
+  - [x] Onboarding
+  - [x] Personal dashboard overview
+  - [x] Wallet and transaction workflows
+  - [x] Family navigation and permissions
+  - [x] Admin navigation and protected actions
+- [x] Capture current screenshots or a concise behavior checklist for critical routes.
+- [x] Run and record the current baseline results:
 
   ```bash
   pnpm lint
@@ -123,13 +123,13 @@ Create a reliable record of current behavior and known failures before moving co
   pnpm build
   ```
 
-- [ ] Classify placeholder files into:
+- [x] Classify placeholder files into:
   - required and scheduled for implementation;
   - obsolete and safe to delete;
   - intentionally deferred with a named owning phase.
-- [ ] Record current large/high-risk modules, including the UI catalog, help center, reports,
+- [x] Record current large/high-risk modules, including the UI catalog, help center, reports,
       finance pages/dialogs, admin settings, Family views, and chart modules.
-- [ ] Confirm backend endpoint, auth, money, currency, date, and error-response contracts before
+- [x] Confirm backend endpoint, auth, money, currency, date, and error-response contracts before
       replacing mocks.
 
 ### Deliverables
@@ -141,10 +141,10 @@ Create a reliable record of current behavior and known failures before moving co
 
 ### Exit Gate
 
-- [ ] Every existing URL has a recorded target path.
-- [ ] Existing quality failures are documented and reproducible.
-- [ ] No user-owned work has been overwritten or mixed into the refactor.
-- [ ] High-risk flows have a repeatable manual or automated verification method.
+- [x] Every existing URL has a recorded target path.
+- [x] Existing quality failures are documented and reproducible.
+- [x] No user-owned work has been overwritten or mixed into the refactor.
+- [x] High-risk flows have a repeatable manual or automated verification method.
 
 ---
 
@@ -156,21 +156,21 @@ Make every later phase verifiable with consistent local and CI commands.
 
 ### Tasks
 
-- [ ] Add a `typecheck` script using `tsc --noEmit`.
-- [ ] Configure a unit/component test stack suitable for React and TypeScript.
-- [ ] Configure Playwright or the approved equivalent for end-to-end critical flows.
-- [ ] Add `test` and focused test scripts to `package.json`.
-- [ ] Ensure formatting checks include the files intentionally maintained by the project, including
+- [x] Add a `typecheck` script using `tsc --noEmit`.
+- [x] Configure a unit/component test stack suitable for React and TypeScript.
+- [x] Configure Playwright or the approved equivalent for end-to-end critical flows.
+- [x] Add `test` and focused test scripts to `package.json`.
+- [x] Ensure formatting checks include the files intentionally maintained by the project, including
       root Markdown rules/plan documents where appropriate.
-- [ ] Add a CI workflow that runs install, format check, lint, typecheck, tests, and build.
-- [ ] Add a minimal render/smoke test for each current application context.
-- [ ] Add test helpers for:
+- [x] Add a CI workflow that runs install, format check, lint, typecheck, tests, and build.
+- [x] Add a minimal render/smoke test for each current application context.
+- [x] Add test helpers for:
   - fixed time and timezone;
   - deterministic currency values;
   - Redux/RTK Query providers;
   - router/navigation behavior;
   - API success and normalized failure responses.
-- [ ] Do not weaken TypeScript, ESLint, or build settings to make legacy code pass; document or fix
+- [x] Do not weaken TypeScript, ESLint, or build settings to make legacy code pass; document or fix
       the underlying issue.
 
 ### Deliverables
@@ -189,10 +189,10 @@ Make every later phase verifiable with consistent local and CI commands.
 
 ### Exit Gate
 
-- [ ] All target scripts exist and run locally.
-- [ ] CI runs the same commands used locally.
-- [ ] At least one representative smoke test passes for Public, Personal, Family, and Admin.
-- [ ] Newly introduced failures block phase completion.
+- [x] All target scripts exist and run locally.
+- [x] CI runs the same commands used locally.
+- [x] At least one representative smoke test passes for Public, Personal, Family, and Admin.
+- [x] Newly introduced failures block phase completion.
 
 ---
 
@@ -724,6 +724,7 @@ Use this checklist whenever a single route or workflow is migrated:
 
 Add one row when a phase or meaningful route batch changes status.
 
-| Date | Phase/batch | Status | Verification | Notes/next action |
-| ---- | ----------- | ------ | ------------ | ----------------- |
-| —    | —           | —      | —            | —                 |
+| Date       | Phase/batch | Status   | Verification                             | Notes/next action                          |
+| ---------- | ----------- | -------- | ---------------------------------------- | ------------------------------------------ |
+| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records | Baseline documented and safety validated.  |
+| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test | Vitest + RTL setup, test helpers & CI flow |
