@@ -352,11 +352,11 @@ Create one typed API/state foundation before migrating data-driven screens.
 
 #### Services
 
-- [ ] Move `redux/api/baseApi.ts` to `services/base-api.ts` and implement the real RTK Query base
+- [x] Move `redux/api/baseApi.ts` to `services/base-api.ts` and implement the real RTK Query base
       API.
-- [ ] Centralize base URL, credentials, shared headers, refresh behavior, tag types, and normalized
+- [x] Centralize base URL, credentials, shared headers, refresh behavior, tag types, and normalized
       errors.
-- [ ] Move resource API modules into capability-named kebab-case files, for example:
+- [x] Move resource API modules into capability-named kebab-case files, for example:
   - `auth-api.ts`
   - `wallets-api.ts`
   - `transactions-api.ts`
@@ -366,44 +366,59 @@ Create one typed API/state foundation before migrating data-driven screens.
   - `reports-api.ts`
   - `billing-api.ts`
   - `coupons-api.ts`
-- [ ] Replace umbrella `familyApi.ts` with resource APIs such as family groups, members, and
+- [x] Replace umbrella `familyApi.ts` with resource APIs such as family groups, members, and
       settlements.
-- [ ] Replace umbrella `adminApi.ts` with resource APIs such as users, subscriptions, plans, audit
+- [x] Replace umbrella `adminApi.ts` with resource APIs such as users, subscriptions, plans, audit
       logs, and settings.
-- [ ] Merge recurring-transaction endpoints into the transaction capability unless the API
+- [x] Merge recurring-transaction endpoints into the transaction capability unless the API
       contract justifies a separate resource module.
-- [ ] Add server-only session/request helpers under `services/server` and mark them `server-only`.
-- [ ] Remove the empty `lib/axios.ts` unless Axios is deliberately adopted and installed.
+- [x] Add server-only session/request helpers under `services/server` and mark them `server-only`.
+- [x] Remove the empty `lib/axios.ts` unless Axios is deliberately adopted and installed.
 
 #### Store
 
-- [ ] Move `redux/store.ts` to `store/store.ts` and configure one Redux store.
-- [ ] Move/create typed hooks in `store/hooks.ts`.
-- [ ] Register the single RTK Query base API reducer and middleware.
-- [ ] Move valid cross-route UI slices to `store/slices` using kebab-case filenames.
-- [ ] Review existing slices:
+- [x] Move `redux/store.ts` to `store/store.ts` and configure one Redux store.
+- [x] Move/create typed hooks in `store/hooks.ts`.
+- [x] Register the single RTK Query base API reducer and middleware.
+- [x] Move valid cross-route UI slices to `store/slices` using kebab-case filenames.
+- [x] Review existing slices:
   - auth: keep only client-global session/UI state not owned by server auth or RTK Query;
   - filters: prefer URL state and remove duplicated filter state;
   - theme: keep one theme source rather than Redux plus context duplication.
 
 #### Providers and contracts
 
-- [ ] Implement or remove the Redux and toast provider placeholders.
-- [ ] Compose only globally required providers and keep them as deep as practical.
-- [ ] Define the normalized application error contract.
-- [ ] Replace empty shared type files with real contracts when their first consumer migrates.
-- [ ] Replace empty schemas/hooks/constants only when needed; otherwise delete them.
-- [ ] Add tests for refresh concurrency, error normalization, cache tags, typed hooks, and critical
+- [x] Implement or remove the Redux and toast provider placeholders.
+- [x] Compose only globally required providers and keep them as deep as practical.
+- [x] Define the normalized application error contract.
+- [x] Replace empty shared type files with real contracts when their first consumer migrates.
+- [x] Replace empty schemas/hooks/constants only when needed; otherwise delete them.
+- [x] Add tests for refresh concurrency, error normalization, cache tags, typed hooks, and critical
       selectors.
 
 ### Exit Gate
 
-- [ ] There is one working base API and one Redux store.
-- [ ] No component contains base URLs, token refresh, or raw transport configuration.
-- [ ] Remote API data is not duplicated in ordinary slices.
-- [ ] `family-api.ts`, `admin-api.ts`, empty provider/store/API placeholders, and unused Axios stubs
+- [x] There is one working base API and one Redux store.
+- [x] No component contains base URLs, token refresh, or raw transport configuration.
+- [x] Remote API data is not duplicated in ordinary slices.
+- [x] `family-api.ts`, `admin-api.ts`, empty provider/store/API placeholders, and unused Axios stubs
       are gone.
-- [ ] API/store tests and all quality gates pass.
+- [x] API/store tests and all quality gates pass.
+
+### Completion Log
+
+**Completed:** 2026-08-06
+
+#### What was done
+
+- **Base API & RTK Query Foundation** – Implemented `services/base-api.ts` with `fetchBaseQuery`, automatic 401 re-auth with concurrency locking, tag type registry (`TAG_TYPES`), and normalized application error formatting (`normalizeError`).
+- **Capability-Named Resource APIs** – Implemented 16 modular capability APIs: `auth-api.ts`, `wallets-api.ts`, `transactions-api.ts` (with recurring capability merged), `categories-api.ts`, `budgets-api.ts`, `goals-api.ts`, `reports-api.ts`, `family-groups-api.ts`, `family-members-api.ts`, `settlements-api.ts`, `billing-api.ts`, `coupons-api.ts`, `users-api.ts`, `subscriptions-api.ts`, `plans-api.ts`, and `audit-logs-api.ts`.
+- **Server-Only Helpers** – Added `services/server/session.ts` and `services/server/request.ts` with `import 'server-only';`.
+- **Single Redux Store** – Configured single store in `store/store.ts` with `baseApi` middleware & reducer, `auth-slice.ts` under `store/slices/`, and typed hooks in `store/hooks.ts`. Deleted legacy `src/redux/` directory.
+- **Provider Layer** – Implemented `ReduxProvider` (React 19 initializer pattern), `ToastProvider`, and `AppProviders` composition in `providers/app-providers.tsx`. Updated `app/layout.tsx`.
+- **Domain & Error Contracts** – Defined `AppError`, `ApiResponse<T>`, `PaginatedResponse<T>` in `types/api.ts` and domain contracts in `user.ts`, `wallet.ts`, `transaction.ts`, `budget.ts`, `admin.ts`.
+- **Cleaned Stubs** – Removed empty `lib/axios.ts`. Updated test helpers in `test/helpers.tsx`.
+- **Tests & Quality Gates** – Added `src/test/services-and-store.test.ts`. `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` all pass.
 
 ---
 

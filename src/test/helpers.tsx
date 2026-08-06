@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { vi } from 'vitest';
 
 // 1. Fixed time and timezone helper
@@ -27,21 +26,11 @@ export function createTestAmount(cents: number, currency = 'USD') {
   };
 }
 
-// Dummy slice for provider wrapper in tests until Phase 4 store is wired
-const testSlice = createSlice({
-  name: 'test',
-  initialState: {},
-  reducers: {},
-});
+import { makeStore, AppStore } from '@/store/store';
 
 // 3. Redux / RTK Query Provider render helper
 export function createTestStore(preloadedState = {}) {
-  return configureStore({
-    reducer: {
-      test: testSlice.reducer,
-    },
-    preloadedState,
-  });
+  return makeStore(preloadedState);
 }
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
