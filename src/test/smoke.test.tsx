@@ -2,12 +2,12 @@ import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { renderWithProviders } from './helpers';
 
-import PublicPage from '@/app/(public)/page';
-import OnboardingPage from '@/app/onboarding/page';
-import MaintenancePage from '@/app/maintenance/page';
-import PersonalDashboardPage from '@/app/(dashboard)/dashboard/page';
-import FamilyDashboardPage from '@/app/family/dashboard/page';
-import AdminDashboardPage from '@/app/admin/dashboard/page';
+import PublicPage from '@/app/(public)/(pages)/page';
+import OnboardingPage from '@/app/(public)/onboarding/page';
+import MaintenancePage from '@/app/(public)/maintenance/page';
+import PersonalDashboardPage from '@/app/(personal)/dashboard/page';
+import FamilyDashboardPage from '@/app/(family)/family/dashboard/page';
+import AdminDashboardPage from '@/app/(admin)/admin/dashboard/page';
 
 describe('Application Context Smoke Tests', () => {
   it('renders Public Landing page without crashing', () => {

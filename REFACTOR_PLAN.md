@@ -83,7 +83,7 @@ These decisions are already agreed and should not be reopened during routine imp
 | ----: | ----------------------------------------- | ---------- | ----------- |
 |     0 | Baseline and safety                       | —          | Complete    |
 |     1 | Tooling and quality foundation            | Phase 0    | Complete    |
-|     2 | Route groups, layouts, and shells         | Phase 1    | Not started |
+|     2 | Route groups, layouts, and shells         | Phase 1    | Complete    |
 |     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Not started |
 |     4 | Services, store, providers, and contracts | Phase 3    | Not started |
 |     5 | Public application areas                  | Phase 4    | Not started |
@@ -206,55 +206,55 @@ Move every route into its agreed application context without changing URLs or be
 
 #### Public routes
 
-- [ ] Create `(public)/(pages)` only by moving real public routes into it.
-- [ ] Move the current public shell from `(public)/layout.tsx` to `(public)/(pages)/layout.tsx`.
-- [ ] Keep `(public)/(auth)` and its `AuthShell` separate from the public marketing shell.
-- [ ] Move `app/onboarding` to `app/(public)/onboarding`.
-- [ ] Move `app/ui` to `app/(public)/ui`.
-- [ ] Move `app/maintenance` to `app/(public)/maintenance`.
-- [ ] Ensure `(public)/layout.tsx`, if retained, is neutral and does not add the marketing shell.
+- [x] Create `(public)/(pages)` only by moving real public routes into it.
+- [x] Move the current public shell from `(public)/layout.tsx` to `(public)/(pages)/layout.tsx`.
+- [x] Keep `(public)/(auth)` and its `AuthShell` separate from the public marketing shell.
+- [x] Move `app/onboarding` to `app/(public)/onboarding`.
+- [x] Move `app/ui` to `app/(public)/ui`.
+- [x] Move `app/maintenance` to `app/(public)/maintenance`.
+- [x] Ensure `(public)/layout.tsx`, if retained, is neutral and does not add the marketing shell.
 
 #### Personal Dashboard
 
-- [ ] Rename/move `app/(dashboard)` to `app/(personal)`.
-- [ ] Replace the generic dashboard composition with an explicit `PersonalDashboardShell`.
-- [ ] Preserve URLs such as `/dashboard`, `/wallets`, `/transactions`, `/settings`, and `/reports`.
+- [x] Rename/move `app/(dashboard)` to `app/(personal)`.
+- [x] Replace the generic dashboard composition with an explicit `PersonalDashboardShell`.
+- [x] Preserve URLs such as `/dashboard`, `/wallets`, `/transactions`, `/settings`, and `/reports`.
 
 #### Family Dashboard
 
-- [ ] Create `app/(family)/layout.tsx` with `FamilyDashboardShell`.
-- [ ] Move `app/family/*` to `app/(family)/family/*` without changing `/family/*` URLs.
-- [ ] Preserve the `/family` entry route behavior intentionally: render or redirect, but do not
+- [x] Create `app/(family)/layout.tsx` with `FamilyDashboardShell`.
+- [x] Move `app/family/*` to `app/(family)/family/*` without changing `/family/*` URLs.
+- [x] Preserve the `/family` entry route behavior intentionally: render or redirect, but do not
       leave an accidental duplicate dashboard.
 
 #### Admin Dashboard
 
-- [ ] Create `app/(admin)/layout.tsx` with `AdminDashboardShell`.
-- [ ] Move `app/admin/*` to `app/(admin)/admin/*` without changing `/admin/*` URLs.
-- [ ] Preserve the `/admin` entry route behavior intentionally.
+- [x] Create `app/(admin)/layout.tsx` with `AdminDashboardShell`.
+- [x] Move `app/admin/*` to `app/(admin)/admin/*` without changing `/admin/*` URLs.
+- [x] Preserve the `/admin` entry route behavior intentionally.
 
 #### Root boundaries
 
-- [ ] Keep `app/layout.tsx`, `app/api`, favicon, global styles, and global error/not-found boundaries
+- [x] Keep `app/layout.tsx`, `app/api`, favicon, global styles, and global error/not-found boundaries
       at the root.
-- [ ] Replace the empty root `loading.tsx` with meaningful UI or remove it if it provides no value.
-- [ ] Ensure root providers do not make the root layout a Client Component.
+- [x] Replace the empty root `loading.tsx` with meaningful UI or remove it if it provides no value.
+- [x] Ensure root providers do not make the root layout a Client Component.
 
 ### Verification
 
-- [ ] Compare the post-move route list with the Phase 0 URL ledger.
-- [ ] Verify direct navigation and client navigation to every route group.
-- [ ] Verify browser refresh on nested dynamic routes.
-- [ ] Confirm no two route groups resolve to the same URL.
-- [ ] Confirm public pages are not wrapped by dashboard shells and auth/onboarding/UI/maintenance
+- [x] Compare the post-move route list with the Phase 0 URL ledger.
+- [x] Verify direct navigation and client navigation to every route group.
+- [x] Verify browser refresh on nested dynamic routes.
+- [x] Confirm no two route groups resolve to the same URL.
+- [x] Confirm public pages are not wrapped by dashboard shells and auth/onboarding/UI/maintenance
       are not wrapped by the marketing shell.
 
 ### Exit Gate
 
-- [ ] All routes live under the target context.
-- [ ] No URL has changed unintentionally.
-- [ ] Personal, Family, and Admin use distinct shells.
-- [ ] Format, lint, typecheck, route smoke tests, and build pass.
+- [x] All routes live under the target context.
+- [x] No URL has changed unintentionally.
+- [x] Personal, Family, and Admin use distinct shells.
+- [x] Format, lint, typecheck, route smoke tests, and build pass.
 
 ---
 
@@ -724,7 +724,8 @@ Use this checklist whenever a single route or workflow is migrated:
 
 Add one row when a phase or meaningful route batch changes status.
 
-| Date       | Phase/batch | Status   | Verification                             | Notes/next action                          |
-| ---------- | ----------- | -------- | ---------------------------------------- | ------------------------------------------ |
-| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records | Baseline documented and safety validated.  |
-| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test | Vitest + RTL setup, test helpers & CI flow |
+| Date       | Phase/batch | Status   | Verification                              | Notes/next action                                                              |
+| ---------- | ----------- | -------- | ----------------------------------------- | ------------------------------------------------------------------------------ |
+| 2026-08-06 | Phase 0     | Complete | Route ledger, baseline build/tsc records  | Baseline documented and safety validated.                                      |
+| 2026-08-06 | Phase 1     | Complete | pnpm lint, format:check, typecheck, test  | Vitest + RTL setup, test helpers & CI flow                                     |
+| 2026-08-06 | Phase 2     | Complete | pnpm lint, format:check, typecheck, build | Route groups (public), (personal), (family), (admin) & explicit shells created |

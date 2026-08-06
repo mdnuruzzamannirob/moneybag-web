@@ -9,13 +9,17 @@ import { blogPosts } from '@/lib/public-content';
 export function generateStaticParams() {
   return blogPosts.map(({ slug }) => ({ slug }));
 }
-export async function generateMetadata({ params }: PageProps<'/blog/[slug]'>): Promise<Metadata> {
+type BlogPostPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
   return post ? { title: post.title, description: post.excerpt } : { title: 'Article not found' };
 }
 
-export default async function BlogPostPage({ params }: PageProps<'/blog/[slug]'>) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
   if (!post) notFound();
