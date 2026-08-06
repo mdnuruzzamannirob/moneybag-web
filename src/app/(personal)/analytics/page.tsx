@@ -1,9 +1,9 @@
-import { AnalyticsPage } from '@/components/user/analytics-page';
 import type { Metadata } from 'next';
+import { AnalyticsPage } from '@/components/personal/analytics-page';
 
 export const metadata: Metadata = {
-  title: 'Analytics',
-  description: 'Explore income, expenses, spending patterns, and savings performance.',
+  title: 'Analytics | MoneyBag',
+  description: 'Detailed cash flow and spending analytics.',
 };
 
 export default function Page() {

@@ -34,7 +34,7 @@ const numberFormatter = new Intl.NumberFormat('en-US', {
 });
 const formatCurrency = (value: number) => `৳${numberFormatter.format(value)}`;
 
-export function UserDashboard({ data }: { data: UserDashboardData }) {
+export function UserDashboardView({ data }: { data: UserDashboardData }) {
   const categoryTotal = data.categories.reduce((total, category) => total + category.value, 0);
 
   return (

@@ -34,7 +34,11 @@ import {
   AppTable,
   type AppTableColumn,
 } from '@/components/app-ui';
-import { FinanceDialog, RowMenu, type FinanceDialogKind } from '@/components/user/finance-dialog';
+import {
+  FinanceDialog,
+  RowMenu,
+  type FinanceDialogKind,
+} from '@/components/personal/finance-dialog';
 import { cn } from '@/lib/utils';
 
 const nf = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
@@ -237,7 +241,7 @@ function PageHeader({
   description,
   title,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   description: string;
   title: string;
 }) {
@@ -265,12 +269,14 @@ export function TransactionsPage() {
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [category, setCategory] = useState('all');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const pageSize = 5;
   const [dialog, setDialog] = useState<FinanceDialogKind | null>(null);
+
   useEffect(() => {
     const timeout = window.setTimeout(() => setDebouncedQuery(query), 300);
     return () => window.clearTimeout(timeout);
   }, [query]);
+
   const categoryOptions = [
     { label: 'All categories', value: 'all' },
     ...Array.from(new Set(items.map((item) => item.category))).map((item) => ({
@@ -278,6 +284,7 @@ export function TransactionsPage() {
       value: item,
     })),
   ];
+
   const filtered = useMemo(
     () =>
       items.filter(
@@ -290,9 +297,11 @@ export function TransactionsPage() {
       ),
     [items, type, category, debouncedQuery],
   );
+
   const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
   const safePage = Math.min(page, pageCount);
   const visible = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+
   const columns: readonly AppTableColumn<Transaction>[] = [
     {
       key: 'description',
@@ -337,7 +346,7 @@ export function TransactionsPage() {
       align: 'right',
       key: 'actions',
       header: '',
-      render: () => <RowMenu inline kind="transaction" />,
+      render: () => <RowMenu kind="transaction" />,
     },
   ];
 
@@ -360,12 +369,14 @@ export function TransactionsPage() {
           Add transaction
         </AppButton>
       </PageHeader>
+
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Stat icon={ReceiptText} label="All transactions" value={`${items.length}`} />
         <Stat icon={TrendingUp} label="Income - July" tone="success" value={money(103200)} />
         <Stat icon={TrendingDown} label="Expenses - July" tone="danger" value={money(13200)} />
         <Stat icon={CalendarDays} label="This week" tone="warning" value="6 entries" />
       </section>
+
       <AppCard padding="none">
         <div className="flex flex-col gap-3 p-4 lg:flex-row lg:items-center lg:justify-between">
           <AppSegmentedControl
@@ -402,7 +413,6 @@ export function TransactionsPage() {
                       setQuery('');
                       setPage(1);
                     }}
-                    size="icon-xs"
                     tone="ghost"
                   >
                     <X />
@@ -412,60 +422,37 @@ export function TransactionsPage() {
               value={query}
             />
             <AppSelect
+              triggerClassName="w-full sm:w-48"
               onValueChange={(value) => {
                 setCategory(value ?? 'all');
                 setPage(1);
               }}
               options={categoryOptions}
-              placeholder="All categories"
-              triggerClassName="w-full sm:w-48"
               value={category}
             />
           </div>
         </div>
-        <div className="hidden md:block">
-          <AppTable
-            className="rounded-none border-x-0 border-b-0 border-t border-border"
-            columns={columns}
-            empty="No transactions match your filters."
-            getRowKey={(row) => row.id}
-            rows={visible}
+
+        {visible.length === 0 ? (
+          <AppEmptyState
+            action={
+              <AppButton onClick={() => setDialog('transaction')} size="sm">
+                <Plus /> Add transaction
+              </AppButton>
+            }
+            description="Try clearing your search query or changing filters."
+            icon={<Filter />}
+            title="No transactions found"
           />
-        </div>
-        <div className="divide-y divide-border border-t border-border md:hidden">
-          {visible.length ? (
-            visible.map((item) => <TransactionMobile item={item} key={item.id} />)
-          ) : (
-            <AppEmptyState
-              description="Try changing the type, category, or search term."
-              icon={<Search />}
-              title="No matching transactions"
-            />
-          )}
-        </div>
-        <footer className="flex flex-col gap-3 border-t border-border px-4 py-3 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <span>Rows</span>
-            <AppSelect
-              onValueChange={(value) => {
-                setPageSize(Number(value ?? 5));
-                setPage(1);
-              }}
-              options={[5, 10, 20, 30, 50].map((value) => ({
-                label: `${value}`,
-                value: `${value}`,
-              }))}
-              size="sm"
-              triggerClassName="w-20"
-              value={`${pageSize}`}
-            />
-            <span>
-              Showing {visible.length} of {filtered.length}
-            </span>
-          </div>
+        ) : (
+          <AppTable<Transaction> columns={columns} rows={visible} getRowKey={(row) => row.id} />
+        )}
+
+        <div className="border-t border-border p-4">
           <AppPagination onPageChange={setPage} page={safePage} totalPages={pageCount} />
-        </footer>
+        </div>
       </AppCard>
+
       {dialog ? <FinanceDialog kind={dialog} onClose={() => setDialog(null)} /> : null}
     </div>
   );
@@ -473,81 +460,90 @@ export function TransactionsPage() {
 
 function TransactionIdentity({ item }: { item: Transaction }) {
   return (
-    <div className="min-w-0">
-      <div className="truncate font-medium">{item.title}</div>
-      <div className="mt-1 truncate text-xs leading-4 text-muted-foreground">{item.note}</div>
+    <div className="flex items-center gap-3">
+      <span
+        className="grid size-9 shrink-0 place-items-center rounded-lg text-xs font-semibold"
+        style={{ backgroundColor: `${item.color}1c`, color: item.color }}
+      >
+        {item.icon}
+      </span>
+      <div className="min-w-0">
+        <p className="truncate text-sm font-medium text-foreground">{item.title}</p>
+        <p className="truncate text-xs text-muted-foreground">{item.note}</p>
+      </div>
     </div>
   );
 }
 
 function TransactionAmount({ item }: { item: Transaction }) {
   return (
-    <span className={cn('font-semibold', item.type === 'income' ? 'text-success' : 'text-danger')}>
+    <span
+      className={cn(
+        'text-sm font-semibold',
+        item.type === 'income' ? 'text-success' : 'text-foreground',
+      )}
+    >
       {item.type === 'income' ? '+' : '-'}
       {money(item.amount)}
     </span>
   );
 }
 
-function TransactionMobile({ item }: { item: Transaction }) {
+export function CategoriesPage() {
+  const [dialog, setDialog] = useState<FinanceDialogKind | null>(null);
   return (
-    <div className="flex items-center gap-3 px-4 py-3.5">
-      <TransactionIdentity item={item} />
-      <span className="ml-auto shrink-0">
-        <TransactionAmount item={item} />
-      </span>
-      <RowMenu inline kind="transaction" />
+    <div className="space-y-6">
+      <PageHeader description="Organize your spending into clear categories." title="Categories">
+        <AppButton onClick={() => setDialog('budget')} size="sm">
+          <Plus />
+          Add category
+        </AppButton>
+      </PageHeader>
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Stat icon={WalletCards} label="Categories" value="12 total" />
+        <Stat
+          icon={TrendingDown}
+          label="Top expense category"
+          tone="danger"
+          value="Food & dining"
+        />
+        <Stat icon={TrendingUp} label="Top income category" tone="success" value="Salary" />
+        <Stat icon={Target} label="Budgeted categories" tone="warning" value="4 active" />
+      </section>
+      <AppCard>
+        <p className="text-sm text-muted-foreground">Category breakdown and configuration view.</p>
+      </AppCard>
+      {dialog ? <FinanceDialog kind={dialog} onClose={() => setDialog(null)} /> : null}
     </div>
   );
 }
 
 export function BudgetsPage() {
   const [dialog, setDialog] = useState<FinanceDialogKind | null>(null);
-  const totalBudget = budgetSeed.reduce((sum, item) => sum + item.limit, 0);
   const totalSpent = budgetSeed.reduce((sum, item) => sum + item.spent, 0);
-  const attention = budgetSeed.filter((item) => item.spent / item.limit >= item.alert / 100).length;
+  const totalLimit = budgetSeed.reduce((sum, item) => sum + item.limit, 0);
   return (
     <div className="space-y-6">
       <PageHeader
-        description="Set category limits and track your spending this month."
+        description="Keep your spending under control with monthly targets."
         title="Budgets"
       >
-        <AppSelect
-          defaultValue="july"
-          options={[
-            { label: 'August 2026', value: 'august' },
-            { label: 'September 2026', value: 'september' },
-            { label: 'October 2026', value: 'october' },
-            { label: 'November 2026', value: 'november' },
-            { label: 'December 2026', value: 'december' },
-            { label: 'July 2026', value: 'july' },
-            { label: 'June 2026', value: 'june' },
-          ]}
-          size="sm"
-          triggerClassName="w-36"
-        />
         <AppButton onClick={() => setDialog('budget')} size="sm">
           <Plus />
-          Add budget
+          Create budget
         </AppButton>
       </PageHeader>
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Stat icon={Target} label="Total budget" value={money(totalBudget)} />
-        <Stat icon={TrendingDown} label="Total spent" tone="danger" value={money(totalSpent)} />
+        <Stat icon={Target} label="Active budgets" value={`${budgetSeed.length}`} />
+        <Stat icon={TrendingDown} label="Total spent" tone="warning" value={money(totalSpent)} />
+        <Stat icon={Landmark} label="Total limit" tone="success" value={money(totalLimit)} />
         <Stat
           icon={WalletCards}
-          label="Remaining"
-          tone="success"
-          value={money(totalBudget - totalSpent)}
-        />
-        <Stat
-          icon={Filter}
-          label="Need attention"
-          tone="warning"
-          value={`${attention} categories`}
+          label="Overall progress"
+          value={`${Math.round((totalSpent / totalLimit) * 100)}%`}
         />
       </section>
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-4 md:grid-cols-2">
         {budgetSeed.map((budget) => (
           <BudgetCard budget={budget} key={budget.id} />
         ))}
@@ -558,11 +554,10 @@ export function BudgetsPage() {
 }
 
 function BudgetCard({ budget }: { budget: Budget }) {
-  const percentage = Math.round((budget.spent / budget.limit) * 100);
-  const left = Math.max(0, budget.limit - budget.spent);
-  const warning = percentage >= budget.alert;
+  const progress = Math.round((budget.spent / budget.limit) * 100);
+  const remaining = budget.limit - budget.spent;
   return (
-    <AppCard className="h-full">
+    <AppCard>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
@@ -573,27 +568,21 @@ function BudgetCard({ budget }: { budget: Budget }) {
           </span>
           <div>
             <h2 className="text-sm font-semibold">{budget.category}</h2>
-            <p className="mt-0.5 text-xs text-muted-foreground">Monthly budget</p>
+            <p className="text-xs text-muted-foreground">
+              {money(remaining)} remaining of {money(budget.limit)}
+            </p>
           </div>
         </div>
         <RowMenu kind="budget" />
       </div>
-      <div className="mt-6 flex items-end justify-between">
-        <p className="text-xl font-semibold tracking-tight">{money(budget.spent)}</p>
-        <p className="text-xs text-muted-foreground">of {money(budget.limit)}</p>
-      </div>
-      <AppProgress className="mt-3" tone={warning ? 'danger' : 'primary'} value={percentage} />
-      <div className="mt-3 flex items-center justify-between text-xs">
-        <span className={warning ? 'font-medium text-danger' : 'text-muted-foreground'}>
-          {percentage}% used
-        </span>
-        <span className="text-muted-foreground">{money(left)} left</span>
-      </div>
-      <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs">
-        <span className="text-muted-foreground">Alert at {budget.alert}%</span>
-        <AppBadge status={budget.rollover ? 'info' : 'neutral'}>
-          {budget.rollover ? 'Rollover on' : 'No rollover'}
-        </AppBadge>
+      <AppProgress
+        className="mt-4"
+        tone={progress >= 80 ? 'warning' : 'primary'}
+        value={progress}
+      />
+      <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+        <span>{money(budget.spent)} spent</span>
+        <span>{progress}% used</span>
       </div>
     </AppCard>
   );

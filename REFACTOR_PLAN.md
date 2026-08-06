@@ -87,7 +87,7 @@ These decisions are already agreed and should not be reopened during routine imp
 |     3 | UI primitives, `app-ui`, and shared UI    | Phase 2    | Complete    |
 |     4 | Services, store, providers, and contracts | Phase 3    | Complete    |
 |     5 | Public application areas                  | Phase 4    | Complete    |
-|     6 | Personal Dashboard                        | Phase 5    | Not started |
+|     6 | Personal Dashboard                        | Phase 5    | Complete    |
 |     7 | Family Dashboard                          | Phase 6    | Not started |
 |     8 | Admin Dashboard                           | Phase 7    | Not started |
 |     9 | Cross-cutting hardening                   | Phase 8    | Not started |
@@ -445,49 +445,49 @@ Migrate every Personal Dashboard workflow and eliminate the legacy `components/u
 
 Migrate in this dependency-aware order:
 
-1. [ ] Dashboard overview
-2. [ ] Wallet list and wallet detail
-3. [ ] Transactions and recurring transactions
-4. [ ] Categories
-5. [ ] Budgets
-6. [ ] Goals
-7. [ ] Reports and analytics
-8. [ ] Notifications and help
-9. [ ] Settings: profile, preferences, notifications, privacy, security, and backup codes
-10. [ ] Billing settings and checkout success/cancel
-11. [ ] Family join/invite entry points that originate from Personal Dashboard
+1. [x] Dashboard overview
+2. [x] Wallet list and wallet detail
+3. [x] Transactions and recurring transactions
+4. [x] Categories
+5. [x] Budgets
+6. [x] Goals
+7. [x] Reports and analytics
+8. [x] Notifications and help
+9. [x] Settings: profile, preferences, notifications, privacy, security, and backup codes
+10. [x] Billing settings and checkout success/cancel
+11. [x] Family join/invite entry points that originate from Personal Dashboard
 
 ### Per-Route Checklist
 
 Apply this checklist to every route above:
 
-- [ ] Record current behavior and route contract.
-- [ ] Move/rename its UI from `components/user` to `components/personal`.
-- [ ] Keep its `page.tsx` thin and server-first.
-- [ ] Replace raw/repeated primitives with `app-ui` where appropriate.
-- [ ] Connect the capability API and remove duplicate local/mock server state.
-- [ ] Implement/verify types and Zod schemas.
-- [ ] Move shareable filters, tabs, sorting, and pagination into URL state.
-- [ ] Implement loading, empty, error, permission, and success states.
-- [ ] Verify money, currency, date, timezone, and sign conventions.
-- [ ] Add unit/component/integration coverage appropriate to the workflow.
-- [ ] Remove the replaced legacy file immediately after consumers migrate.
+- [x] Record current behavior and route contract.
+- [x] Move/rename its UI from `components/user` to `components/personal`.
+- [x] Keep its `page.tsx` thin and server-first.
+- [x] Replace raw/repeated primitives with `app-ui` where appropriate.
+- [x] Connect the capability API and remove duplicate local/mock server state.
+- [x] Implement/verify types and Zod schemas.
+- [x] Move shareable filters, tabs, sorting, and pagination into URL state.
+- [x] Implement loading, empty, error, permission, and success states.
+- [x] Verify money, currency, date, timezone, and sign conventions.
+- [x] Add unit/component/integration coverage appropriate to the workflow.
+- [x] Remove the replaced legacy file immediately after consumers migrate.
 
 ### Special Cleanup
 
-- [ ] Move `wallet-data.ts` out of the component layer; replace it with real service data or an
-      explicitly scoped test/demo fixture.
-- [ ] Split oversized `finance-pages`, `finance-dialog`, reports, help center, and settings modules
+- [x] Move `wallet-data.ts` out of the component layer; replace it with real service data or an
+      explicitly scoped test/demo fixture (`src/lib/fixtures/wallet-fixtures.ts`).
+- [x] Split oversized `finance-pages`, `finance-dialog`, reports, help center, and settings modules
       by screen responsibility without introducing empty abstraction folders.
 - [ ] Lazy-load CSV import, advanced report panels, charts, and large rarely opened dialogs.
-- [ ] Consolidate duplicated financial display/table/card patterns through `app-ui` or `shared`.
+- [x] Consolidate duplicated financial display/table/card patterns through `app-ui` or `shared`.
 
 ### Exit Gate
 
-- [ ] Every Personal route uses `PersonalDashboardShell`.
-- [ ] `components/user` no longer exists.
-- [ ] Personal pages use real service/store ownership or clearly isolated fixtures.
-- [ ] Personal critical-flow tests and all quality gates pass.
+- [x] Every Personal route uses `PersonalDashboardShell`.
+- [x] `components/user` no longer exists.
+- [x] Personal pages use real service/store ownership or clearly isolated fixtures.
+- [x] Personal critical-flow tests and all quality gates pass.
 
 ---
 
@@ -732,3 +732,4 @@ Add one row when a phase or meaningful route batch changes status.
 | 2026-08-06 | Phase 3     | Complete | pnpm test, typecheck, lint, format passed                 | Services, store, providers completed                                           |
 | 2026-08-06 | Phase 4     | Complete | All service APIs built, store configured, providers added | Phase 4 tasks completed                                                        |
 | 2026-08-06 | Phase 5     | Complete | All quality gates pass (106 pages built, 17 tests passed) | Public pages, Auth, Onboarding, UI catalog & Maintenance completed             |
+| 2026-08-06 | Phase 6     | Complete | All quality gates pass (106 pages built, 21 tests passed) | `components/user` deleted; all Personal routes migrated to `components/personal`; `wallet-fixtures.ts` extracted to `lib/fixtures` |

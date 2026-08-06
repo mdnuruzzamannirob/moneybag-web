@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-
-import { HelpCenter } from '@/components/user/help-center';
+import { UserHelpCenter } from '@/components/personal/help-center-view';
 
 export const metadata: Metadata = {
-  title: 'Help Center',
-  description: 'Search MoneyBag guides, browse help topics and contact support.',
+  title: 'Help Center | MoneyBag',
+  description: 'Search help guides or contact support.',
 };
 
-export default function Page() {
-  return <HelpCenter />;
+export default function HelpPage() {
+  return <UserHelpCenter />;
 }

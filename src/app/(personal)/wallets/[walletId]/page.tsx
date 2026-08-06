@@ -13,24 +13,28 @@ import { notFound } from 'next/navigation';
 
 import {
   formatWalletMoney,
-  walletActivities,
-  wallets,
+  walletActivitiesFixture,
+  walletsFixture,
   type WalletActivity,
-} from '@/components/user/wallet-data';
-import { WalletDetailActions } from '@/components/user/wallet-detail-actions';
+} from '@/lib/fixtures/wallet-fixtures';
+import { WalletDetailActions } from '@/components/personal/wallet-detail-actions';
 import { cn } from '@/lib/utils';
 
 export function generateStaticParams() {
-  return wallets.map((wallet) => ({ walletId: wallet.id }));
+  return walletsFixture.map((wallet) => ({ walletId: wallet.id }));
 }
 
-export default async function Page({ params }: { params: Promise<{ walletId: string }> }) {
+export default async function WalletDetailPage({
+  params,
+}: {
+  params: Promise<{ walletId: string }>;
+}) {
   const { walletId } = await params;
-  const wallet = wallets.find((item) => item.id === walletId);
+  const wallet = walletsFixture.find((item) => item.id === walletId);
   if (!wallet) notFound();
 
   const Icon = wallet.icon;
-  const activities = walletActivities.filter((activity) => activity.walletId === wallet.id);
+  const activities = walletActivitiesFixture.filter((activity) => activity.walletId === wallet.id);
   const income = activities
     .filter((activity) => activity.type === 'income')
     .reduce((total, activity) => total + activity.amount, 0);
@@ -96,7 +100,7 @@ export default async function Page({ params }: { params: Promise<{ walletId: str
             View all <ArrowUpRight />
           </AppButton>
         </div>
-        <AppTable
+        <AppTable<WalletActivity>
           className="rounded-none border-x-0 border-b-0 border-t border-border"
           columns={columns}
           empty="No transactions recorded for this wallet yet."

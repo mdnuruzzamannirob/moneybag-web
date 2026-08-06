@@ -1,4 +1,4 @@
-import { SettingsNavigation } from '@/components/user/settings-navigation';
+import { SettingsNavigation } from '@/components/personal/settings-navigation';
 import { AppPageHeader } from '@/components/app-ui';
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {

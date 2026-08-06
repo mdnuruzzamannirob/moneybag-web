@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 import { useState } from 'react';
 
 import { AppButton, AppField, AppInput, AppModal, AppSelect } from '@/components/app-ui';
-import { wallets, type Wallet } from '@/components/user/wallet-data';
+import { walletsFixture, type Wallet } from '@/lib/fixtures/wallet-fixtures';
 
 export type WalletDialogKind = 'add' | 'edit' | 'transfer' | null;
 
@@ -22,7 +22,7 @@ export function WalletFormDialog({
   const [customType, setCustomType] = useState('');
   const [walletName, setWalletName] = useState(editing?.name ?? '');
 
-  const walletOptions = wallets.map((wallet) => ({ label: wallet.name, value: wallet.id }));
+  const walletOptions = walletsFixture.map((wallet) => ({ label: wallet.name, value: wallet.id }));
   const typeOptions = [
     { label: 'Cash', value: 'Cash' },
     { label: 'Bank account', value: 'Bank account' },
@@ -64,7 +64,10 @@ export function WalletFormDialog({
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <AppField label="From wallet" required>
-              <AppSelect defaultValue={editing?.id ?? wallets[0]?.id} options={walletOptions} />
+              <AppSelect
+                defaultValue={editing?.id ?? walletsFixture[0]?.id}
+                options={walletOptions}
+              />
             </AppField>
             <AppField label="To wallet" required>
               <AppSelect options={walletOptions} placeholder="Select destination" />

@@ -6,14 +6,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { wallets } from '@/components/user/wallet-data';
-import { WalletFormDialog, type WalletDialogKind } from '@/components/user/wallet-modal';
+import { walletsFixture } from '@/lib/fixtures/wallet-fixtures';
+import { WalletFormDialog, type WalletDialogKind } from '@/components/personal/wallet-modal';
 
 export function WalletDetailActions({ walletId }: { walletId: string }) {
   const router = useRouter();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [dialog, setDialog] = useState<WalletDialogKind>(null);
-  const wallet = wallets.find((item) => item.id === walletId);
+  const wallet = walletsFixture.find((item) => item.id === walletId);
 
   if (!wallet) return null;
 

@@ -36,7 +36,7 @@ export type WalletActivity = {
   walletId: string;
 };
 
-export const wallets: Wallet[] = [
+export const walletsFixture: Wallet[] = [
   {
     balance: 18_450,
     color: 'from-emerald-500 to-teal-600',
@@ -104,7 +104,7 @@ export const wallets: Wallet[] = [
   },
 ];
 
-export const walletActivities: WalletActivity[] = [
+export const walletActivitiesFixture: WalletActivity[] = [
   {
     amount: 85_000,
     date: '28 Jul, 2026',

@@ -34,22 +34,23 @@ import { useState } from 'react';
 
 import {
   formatWalletMoney,
-  walletActivities,
-  wallets,
+  walletActivitiesFixture,
+  walletsFixture,
   type Wallet,
+  type WalletActivity,
   type WalletKind,
-} from '@/components/user/wallet-data';
-import { WalletFormDialog, type WalletDialogKind } from '@/components/user/wallet-modal';
+} from '@/lib/fixtures/wallet-fixtures';
+import { WalletFormDialog, type WalletDialogKind } from '@/components/personal/wallet-modal';
 import { cn } from '@/lib/utils';
 
-export default function Page() {
+export default function WalletsPage() {
   const sourceWalletId =
     typeof window === 'undefined'
       ? null
       : new URLSearchParams(window.location.search).get('transfer');
   const editWalletId =
     typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('edit');
-  const requestedWallet = wallets.find(
+  const requestedWallet = walletsFixture.find(
     (wallet) => wallet.id === sourceWalletId || wallet.id === editWalletId,
   );
   const [dialog, setDialog] = useState<WalletDialogKind>(() =>
@@ -62,14 +63,14 @@ export default function Page() {
   const [query, setQuery] = useState('');
   const [kind, setKind] = useState<'all' | WalletKind>('all');
 
-  const assetBalance = wallets
+  const assetBalance = walletsFixture
     .filter((wallet) => wallet.kind === 'asset')
     .reduce((total, wallet) => total + wallet.balance, 0);
-  const creditDue = wallets
+  const creditDue = walletsFixture
     .filter((wallet) => wallet.kind === 'credit')
     .reduce((total, wallet) => total + wallet.balance, 0);
   const netPosition = assetBalance - creditDue;
-  const filteredWallets = wallets.filter(
+  const filteredWallets = walletsFixture.filter(
     (wallet) =>
       (kind === 'all' || wallet.kind === kind) &&
       `${wallet.name} ${wallet.type}`.toLowerCase().includes(query.trim().toLowerCase()),
@@ -123,11 +124,11 @@ export default function Page() {
           value={formatWalletMoney(creditDue)}
         />
         <AppStatCard
-          change={`${wallets.filter((wallet) => wallet.isDefault).length} default`}
+          change={`${walletsFixture.filter((wallet) => wallet.isDefault).length} default`}
           icon={<WalletCards />}
           label="Active wallets"
           tone="info"
-          value={`${wallets.length}`}
+          value={`${walletsFixture.length}`}
         />
       </section>
 
@@ -220,11 +221,11 @@ export default function Page() {
             View all
           </AppButton>
         </div>
-        <AppTable
+        <AppTable<WalletActivity>
           className="rounded-none border-x-0 border-b-0 border-t border-border"
           columns={activityColumns}
           getRowKey={(row) => row.id}
-          rows={walletActivities.slice(0, 4)}
+          rows={walletActivitiesFixture.slice(0, 4)}
         />
       </AppCard>
 
@@ -328,7 +329,7 @@ function WalletCard({
   );
 }
 
-const activityColumns: readonly AppTableColumn<(typeof walletActivities)[number]>[] = [
+const activityColumns: readonly AppTableColumn<(typeof walletActivitiesFixture)[number]>[] = [
   {
     key: 'activity',
     header: 'Activity',
@@ -347,7 +348,7 @@ const activityColumns: readonly AppTableColumn<(typeof walletActivities)[number]
         className="text-muted-foreground hover:text-foreground"
         href={`/wallets/${row.walletId}`}
       >
-        {wallets.find((wallet) => wallet.id === row.walletId)?.name}
+        {walletsFixture.find((wallet) => wallet.id === row.walletId)?.name}
       </Link>
     ),
   },

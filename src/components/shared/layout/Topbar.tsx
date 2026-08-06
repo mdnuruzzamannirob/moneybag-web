@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/dialog';
 
 import { NavSection } from './DashboardShell';
-import { wallets } from '@/components/user/wallet-data';
+import { walletsFixture } from '@/lib/fixtures/wallet-fixtures';
 import { cn } from '@/lib/utils';
 
 const themeOptions = [
@@ -82,7 +82,7 @@ export default function Topbar({
       ? { href: '/family/dashboard', label: 'Family' }
       : { href: '/dashboard', label: 'Personal' };
   const walletId = pathname.startsWith('/wallets/') ? pathname.split('/')[2] : null;
-  const wallet = walletId ? wallets.find((item) => item.id === walletId) : null;
+  const wallet = walletId ? walletsFixture.find((item) => item.id === walletId) : null;
   const breadcrumbItems = wallet
     ? [base, { href: '/wallets', label: 'Wallets' }, { label: wallet.name }]
     : [base, { label: active?.label || 'Dashboard' }];

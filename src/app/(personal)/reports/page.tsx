@@ -1,9 +1,9 @@
-import { ReportsPage } from '@/components/user/reports-page';
 import type { Metadata } from 'next';
+import { ReportsPage } from '@/components/personal/reports-page';
 
 export const metadata: Metadata = {
-  title: 'Reports',
-  description: 'Review and export monthly, yearly, category, and daily finance reports.',
+  title: 'Reports | MoneyBag',
+  description: 'Financial reporting and monthly breakdowns.',
 };
 
 export default function Page() {
