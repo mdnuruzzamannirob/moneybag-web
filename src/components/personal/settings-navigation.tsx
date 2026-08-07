@@ -1,6 +1,6 @@
 'use client';
 
-import { BellRing, CreditCard, LockKeyhole, Settings2, ShieldCheck, UserRound } from 'lucide-react';
+import { BellRing, LockKeyhole, Settings2, ShieldCheck, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,7 +11,6 @@ const items = [
   { href: '/settings/security', label: 'Security', icon: ShieldCheck },
   { href: '/settings/preferences', label: 'Preferences', icon: Settings2 },
   { href: '/settings/notifications', label: 'Notifications', icon: BellRing },
-  { href: '/settings/billing', label: 'Billing', icon: CreditCard },
   { href: '/settings/privacy', label: 'Privacy & data', icon: LockKeyhole },
 ];
 

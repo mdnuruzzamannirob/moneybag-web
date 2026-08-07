@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {
   BarChart3,
   CircleDollarSign,
+  CreditCard,
   FileText,
   Grid2X2,
   HelpCircle,
@@ -46,6 +47,7 @@ export const personalNavSections: NavSection[] = [
     label: 'Account',
     items: [
       { href: '/settings', label: 'Settings', icon: Settings },
+      { href: '/billing', label: 'Billing', icon: CreditCard },
       { href: '/help', label: 'Help Center', icon: HelpCircle },
     ],
   },
