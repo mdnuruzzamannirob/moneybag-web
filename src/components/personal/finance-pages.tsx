@@ -615,8 +615,18 @@ export function CategoriesPage() {
       />
       <div className="grid gap-4 sm:grid-cols-3">
         <AppStatCard icon={<Hash />} label="Total categories" value={`${categorySeed.length}`} />
-        <AppStatCard icon={<Hash />} label="Expense categories" tone="danger" value={`${expenseCount}`} />
-        <AppStatCard icon={<Hash />} label="Income categories" tone="success" value={`${incomeCount}`} />
+        <AppStatCard
+          icon={<Hash />}
+          label="Expense categories"
+          tone="danger"
+          value={`${expenseCount}`}
+        />
+        <AppStatCard
+          icon={<Hash />}
+          label="Income categories"
+          tone="success"
+          value={`${incomeCount}`}
+        />
       </div>
       <AppCard padding="none" className="overflow-hidden">
         <div className="flex flex-col gap-3 border-b border-border p-4 lg:flex-row lg:items-center lg:justify-between">

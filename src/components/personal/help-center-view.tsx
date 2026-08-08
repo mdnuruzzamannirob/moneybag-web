@@ -415,8 +415,6 @@ const toneClasses = {
 } as const;
 
 export function UserHelpCenter() {
-
-
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<CategoryId | 'all'>('all');
   const [selectedArticle, setSelectedArticle] = useState<HelpArticle | null>(null);
@@ -890,9 +888,7 @@ export function UserHelpCenter() {
           {supportRequests.map((request) => (
             <div className="py-3.5 first:pt-0 last:pb-0" key={request.id}>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-xs font-semibold text-muted-foreground">
-                  #{request.id}
-                </span>
+                <span className="text-xs font-semibold text-muted-foreground">#{request.id}</span>
                 <AppBadge
                   size="sm"
                   status={
@@ -910,9 +906,7 @@ export function UserHelpCenter() {
                       : 'OPEN'}
                 </AppBadge>
               </div>
-              <p className="mt-2 text-sm font-medium leading-5">
-                {request.subject}
-              </p>
+              <p className="mt-2 text-sm font-medium leading-5">{request.subject}</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {request.topic} · Last updated {request.updatedAt}
               </p>
@@ -1189,4 +1183,3 @@ export function UserHelpCenter() {
 }
 
 export { UserHelpCenter as HelpCenter };
-
