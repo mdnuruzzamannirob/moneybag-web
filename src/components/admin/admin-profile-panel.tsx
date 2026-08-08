@@ -1,6 +1,6 @@
 'use client';
 
-import { SettingsPanel } from '@/components/user/settings-panel';
+import { SettingsPanel } from '@/components/personal/settings-panel';
 
 export type AdminProfileSection = 'profile' | 'security';
 

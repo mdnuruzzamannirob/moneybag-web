@@ -1,5 +1,3 @@
-import { PublicShell } from '@/components/layout/PublicShell';
-
-export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <PublicShell>{children}</PublicShell>;
+export default function PublicRootLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

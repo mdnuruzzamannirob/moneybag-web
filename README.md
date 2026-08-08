@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MoneyBag Web Frontend
 
-## Getting Started
+MoneyBag is a modern personal, family, and admin financial management web application built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **Redux Toolkit + RTK Query**, **Zod**, and **Vitest**.
 
-First, run the development server:
+---
+
+## 🚀 Getting Started
+
+### Installation & Prerequisites
+
+Ensure you have Node.js 18+ and `pnpm` installed.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development Server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Start the local development server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📋 Quality Gate Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run standard validation checks before committing changes:
 
-## Deploy on Vercel
+```bash
+# Typecheck TypeScript
+pnpm typecheck
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Run Vitest test suite
+pnpm test
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Run ESLint
+pnpm lint
+
+# Check formatting with Prettier
+pnpm format:check
+
+# Format files with Prettier
+pnpm format
+
+# Production build & static page generation
+pnpm build
+```
+
+---
+
+## 📐 Architecture & Target Structure
+
+The codebase strictly follows [`CONVENTIONS.md`](./CONVENTIONS.md) and [`REFACTOR_PLAN.md`](./REFACTOR_PLAN.md).
+
+```
+src/
+├── app/                  # Next.js App Router route groups
+│   ├── (public)/         # Marketing, auth, onboarding, UI catalog & maintenance
+│   ├── (personal)/       # Personal dashboard routes (wallets, budgets, goals, etc.)
+│   ├── (family)/         # Family dashboard routes (shared wallets, settlements, etc.)
+│   └── (admin)/          # Admin operations dashboard (users, plans, audit logs, etc.)
+├── components/           # UI components grouped by context
+│   ├── admin/            # Admin dashboard views & modals
+│   ├── app-ui/           # MoneyBag design system primitives
+│   ├── auth/             # Authentication forms & shells
+│   ├── family/           # Family dashboard views & modals
+│   ├── maintenance/      # Maintenance page view
+│   ├── onboarding/       # Onboarding wizard flow
+│   ├── personal/         # Personal dashboard views & modals
+│   ├── public/           # Marketing page components & catalog
+│   ├── shared/           # Cross-context components (charts, shells, sidebar, topbar)
+│   └── ui/               # Base Radix/shadcn primitive abstractions
+├── hooks/                # Custom React hooks
+├── lib/                  # Utilities & demo fixtures
+├── providers/            # Redux, Theme, Toast, and App provider wrappers
+├── schemas/              # Zod validation schemas for all domain entities
+├── services/             # RTK Query API slice endpoints (capability-named)
+├── store/                # Redux Toolkit store & slices
+├── test/                 # Vitest + React Testing Library suites
+└── types/                # TypeScript type definitions
+```
+
+---
+
+## 📄 Refactor Documentation
+
+- **[`CONVENTIONS.md`](./CONVENTIONS.md)** — Core design principles, architectural rules, and folder structure conventions.
+- **[`REFACTOR_PLAN.md`](./REFACTOR_PLAN.md)** — Complete 10-phase execution plan and progress log.
